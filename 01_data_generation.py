@@ -49,13 +49,25 @@ _ = spark.sql("CREATE DATABASE IF NOT EXISTS {0}".format(config['database']))
 
 # COMMAND ----------
 
+config
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC **NOTE**: This next step should be run before any DLT jobs are launched
 
 # COMMAND ----------
 
 # DBTITLE 1,Reset the DLT Environment
-dbutils.fs.rm(config['dlt_pipeline'],True)
+dbutils.fs.rm('/mnt/pos/dlt_pipeline/',True)
+
+# COMMAND ----------
+
+config['dlt_pipeline']
+
+# COMMAND ----------
+
+dbutils.fs.help()
 
 # COMMAND ----------
 
@@ -197,6 +209,10 @@ for blob in container_client.list_blobs(name_starts_with=config['inventory_snaps
 # close clients
 container_client.close()
 blob_service_client.close()
+
+# COMMAND ----------
+
+ config['iot_device_connection_string']
 
 # COMMAND ----------
 

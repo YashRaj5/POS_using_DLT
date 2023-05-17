@@ -22,14 +22,40 @@ import time
 
 # COMMAND ----------
 
-# DBTITLE 1,Initialize Configuration
-config = {'iot_device_connection_string': 'HostName=db-iot-hub.azure-devices.net;DeviceId=sim_data;SharedAccessKey=0vtIv9NC1SbvE1fRPCNIdT3wJ5U08IFlOoS/lm5Gtt0=',
- 'event_hub_compatible_endpoint': 'Endpoint=sb://ihsuprodpnres003dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=0+WQRcCx5rdskmGhCGxlNSMsLoEL9b8NiJyfpFouKcQ=;EntityPath=iothub-ehub-db-iot-hub-24993086-0b83783c15',
- 'eh_namespace': 'ihsuprodpnres003dednamespace',
- 'eh_kafka_topic': 'db-iot-hub',
- 'eh_listen_key_name': 'ehListenihsuprodpnres003dednamespaceAccessKey',
- 'eh_bootstrap_servers': 'ihsuprodpnres003dednamespace.servicebus.windows.net:9093',
- 'eh_sasl': 'kafkashaded.org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ihsuprodpnres003dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=0+WQRcCx5rdskmGhCGxlNSMsLoEL9b8NiJyfpFouKcQ=";',
+# DBTITLE 1,Initialize Configuration (db-iot-hub)
+# config = {'iot_device_connection_string': 'HostName=db-iot-hub.azure-devices.net;DeviceId=sim_data;SharedAccessKey=0vtIv9NC1SbvE1fRPCNIdT3wJ5U08IFlOoS/lm5Gtt0=',
+#  'event_hub_compatible_endpoint': 'Endpoint=sb://ihsuprodpnres003dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=0+WQRcCx5rdskmGhCGxlNSMsLoEL9b8NiJyfpFouKcQ=;EntityPath=iothub-ehub-db-iot-hub-24993086-0b83783c15',
+#  'eh_namespace': 'ihsuprodpnres003dednamespace',
+#  'eh_kafka_topic': 'db-iot-hub',
+#  'eh_listen_key_name': 'ehListenihsuprodpnres003dednamespaceAccessKey',
+#  'eh_bootstrap_servers': 'ihsuprodpnres003dednamespace.servicebus.windows.net:9093',
+#  'eh_sasl': 'kafkashaded.org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ihsuprodpnres003dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=0+WQRcCx5rdskmGhCGxlNSMsLoEL9b8NiJyfpFouKcQ=";',
+#  'storage_account_name': 'dbstr4pos',
+#  'storage_container_name': 'pos',
+#  'storage_account_access_key': 'DAL49gMkMur+B9cVcmTfGzAL/HtOPOOC3pOhEGwkJc9NS1wxYtIFnPEaDxNEd3kntYdqyR/U/fZP+AStCa3sfg==',
+#  'storage_connection_string': 'DefaultEndpointsProtocol=https;AccountName=dbstr4pos;AccountKey=DAL49gMkMur+B9cVcmTfGzAL/HtOPOOC3pOhEGwkJc9NS1wxYtIFnPEaDxNEd3kntYdqyR/U/fZP+AStCa3sfg==;EndpointSuffix=core.windows.net',
+#  'dbfs_mount_name': '/mnt/pos',
+#  'inventory_change_store001_filename': '/mnt/pos/generator/inventory_change_store001.txt',
+#  'inventory_change_online_filename': '/mnt/pos/generator/inventory_change_online.txt',
+#  'inventory_snapshot_store001_filename': '/mnt/pos/generator/inventory_snapshot_store001.txt',
+#  'inventory_snapshot_online_filename': '/mnt/pos/generator/inventory_snapshot_online.txt',
+#  'stores_filename': '/mnt/pos/static_data/store.txt',
+#  'items_filename': '/mnt/pos/static_data/item.txt',
+#  'change_types_filename': '/mnt/pos/static_data/inventory_change_type.txt',
+#  'inventory_snapshot_path': '/mnt/pos/inventory_snapshots/',
+#  'dlt_pipeline': '/mnt/pos/dlt_pipeline',
+#  'database': 'pos_dlt'}
+
+# COMMAND ----------
+
+# DBTITLE 1,Initialize Configuration (POS-IoTHub)
+config = {'iot_device_connection_string': 'HostName=POS-IoTHub.azure-devices.net;DeviceId=pos-device;SharedAccessKey=eSi94QwYvu9NkgpNRnvBHEa+IO+DKIoInfcSZ2haDl4=',
+ 'event_hub_compatible_endpoint': 'Endpoint=sb://iothub-ns-pos-iothub-25027004-a21f1e7938.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=S9KUUnVTSDPEJS8dwHM5GWrMt/hy2CBnhWOzhm1QXvM=;EntityPath=pos-iothub',
+ 'eh_namespace': 'iothub-ns-pos-iothub-25027004-a21f1e7938',
+ 'eh_kafka_topic': 'POS-IoTHub',
+ 'eh_listen_key_name': 'ehListeniothub-ns-pos-iothub-25027004-a21f1e7938AccessKey',
+ 'eh_bootstrap_servers': 'iothub-ns-pos-iothub-25027004-a21f1e7938.servicebus.windows.net:9093',
+ 'eh_sasl': 'kafkashaded.org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://iothub-ns-pos-iothub-25027004-a21f1e7938.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=S9KUUnVTSDPEJS8dwHM5GWrMt/hy2CBnhWOzhm1QXvM=";',
  'storage_account_name': 'dbstr4pos',
  'storage_container_name': 'pos',
  'storage_account_access_key': 'DAL49gMkMur+B9cVcmTfGzAL/HtOPOOC3pOhEGwkJc9NS1wxYtIFnPEaDxNEd3kntYdqyR/U/fZP+AStCa3sfg==',
@@ -51,6 +77,11 @@ config = {'iot_device_connection_string': 'HostName=db-iot-hub.azure-devices.net
 # DBTITLE 1,Setting up the POS Database Environment
 # MAGIC %md
 # MAGIC The typical first step in setting up a streaming architecture is to create a database to house our tables. This needs to be done in advance of running the DLT jobs.
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC CREATE DATABASE IF NOT EXISTS pos_dlt;
 
 # COMMAND ----------
 

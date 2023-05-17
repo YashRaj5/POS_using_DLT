@@ -31,11 +31,39 @@ if 'config' not in locals():
 
 # COMMAND ----------
 
-# DBTITLE 1,Config Settings for Azure IOT Hub
-config['iot_device_connection_string'] = 'HostName=db-iot-hub.azure-devices.net;DeviceId=sim_data;SharedAccessKey=0vtIv9NC1SbvE1fRPCNIdT3wJ5U08IFlOoS/lm5Gtt0=' # replace with your own credential here temporarily or set up a secret scope with your credential
+# DBTITLE 1,Config Settings for Azure IOT Hub (db-iot-hub)
+# config['iot_device_connection_string'] = 'HostName=db-iot-hub.azure-devices.net;DeviceId=sim_data;SharedAccessKey=0vtIv9NC1SbvE1fRPCNIdT3wJ5U08IFlOoS/lm5Gtt0=' # replace with your own credential here temporarily or set up a secret scope with your credential
+# # config['iot_device_connection_string'] = dbutils.secrets.get("solution-accelerator-cicd","rcg_pos_iot_hub_conn_string") 
+ 
+# config['event_hub_compatible_endpoint'] = 'Endpoint=sb://ihsuprodpnres003dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=0+WQRcCx5rdskmGhCGxlNSMsLoEL9b8NiJyfpFouKcQ=;EntityPath=iothub-ehub-db-iot-hub-24993086-0b83783c15' # replace with your own credential here temporarily or set up a secret scope with your credential
+# # config['event_hub_compatible_endpoint'] = dbutils.secrets.get("solution-accelerator-cicd","rcg_pos_iot_hub_endpoint") 
+ 
+# # helper function to convert strings above into dictionaries
+# def split_connstring(connstring):
+#   conn_dict = {}
+#   for kv in connstring.split(';'):
+#     k,v = kv.split('=',1)
+#     conn_dict[k]=v
+#   return conn_dict
+  
+# # split conn strings
+# iothub_conn = split_connstring(config['iot_device_connection_string'])
+# eventhub_conn = split_connstring(config['event_hub_compatible_endpoint'])
+ 
+# # configuring kafka endpoint settings
+# config['eh_namespace'] = eventhub_conn['Endpoint'].split('.')[0].split('://')[1] 
+# config['eh_kafka_topic'] = iothub_conn['HostName'].split('.')[0]
+# config['eh_listen_key_name'] = 'ehListen{0}AccessKey'.format(config['eh_namespace'])
+# config['eh_bootstrap_servers'] = '{0}.servicebus.windows.net:9093'.format(config['eh_namespace'])
+# config['eh_sasl'] = 'kafkashaded.org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint={0};SharedAccessKeyName={1};SharedAccessKey={2}\";'.format(eventhub_conn['Endpoint'], eventhub_conn['SharedAccessKeyName'], eventhub_conn['SharedAccessKey'])
+
+# COMMAND ----------
+
+# DBTITLE 1,Config Settings for Azure IOT Hub (POS-IoTHub)
+config['iot_device_connection_string'] = 'HostName=POS-IoTHub.azure-devices.net;DeviceId=pos-device;SharedAccessKey=eSi94QwYvu9NkgpNRnvBHEa+IO+DKIoInfcSZ2haDl4=' # replace with your own credential here temporarily or set up a secret scope with your credential
 # config['iot_device_connection_string'] = dbutils.secrets.get("solution-accelerator-cicd","rcg_pos_iot_hub_conn_string") 
  
-config['event_hub_compatible_endpoint'] = 'Endpoint=sb://ihsuprodpnres003dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=0+WQRcCx5rdskmGhCGxlNSMsLoEL9b8NiJyfpFouKcQ=;EntityPath=iothub-ehub-db-iot-hub-24993086-0b83783c15' # replace with your own credential here temporarily or set up a secret scope with your credential
+config['event_hub_compatible_endpoint'] = 'Endpoint=sb://iothub-ns-pos-iothub-25027004-a21f1e7938.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=S9KUUnVTSDPEJS8dwHM5GWrMt/hy2CBnhWOzhm1QXvM=;EntityPath=pos-iothub' # replace with your own credential here temporarily or set up a secret scope with your credential
 # config['event_hub_compatible_endpoint'] = dbutils.secrets.get("solution-accelerator-cicd","rcg_pos_iot_hub_endpoint") 
  
 # helper function to convert strings above into dictionaries

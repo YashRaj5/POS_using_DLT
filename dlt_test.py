@@ -100,4 +100,70 @@ config['change_types_filename']
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC USE pos_dlt;
 
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT * FROM inventory_current
+# MAGIC ORDER BY date_time DESC;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT date_format(date_time, 'yyyy-MM-dd HH:mm:ss') as date from inventory_current;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT * FROM inventory_change
+# MAGIC where trans_id = 'FA2AB8F3-432C-44DD-9644-813AC80C927D';
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT * FROM inventory_change_type;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT * FROM inventory_snapshot;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from item;
+# MAGIC -- select count(distinct(item_id)) from item;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from latest_inventory_snapshot
+# MAGIC where store_id = 1;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from raw_inventory_change;
+# MAGIC -- desc raw_inventory_change;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from store;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT * FROM inventory_current_transformed;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select to_date('2021-01-02T00:00:15.000+0000')
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SELECT timestamp('2020-04-30 12:25:13.45');
